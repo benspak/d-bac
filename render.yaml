@@ -1,0 +1,14 @@
+# Render.com Deployment Configuration
+# This file configures the deployment settings for Render.com
+
+# Build Command
+npm install
+
+# Start Command
+npm start
+
+# Environment Variables (set these in Render dashboard)
+# RESEND_API_KEY=your_resend_api_key_here
+# ADMIN_EMAIL=darren.bihms@gmail.com
+# NODE_ENV=production
+# PORT=10000

@@ -15,6 +15,7 @@
                 <h2>D-Bac AI Tea</h2>
             </div>
             <ul class="nav-menu">
+                <li><a href="#waitlist">Waitlist</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#blends">Blends</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -34,13 +35,85 @@
                 <h1 class="hero-title">Wellness in Every Cup</h1>
                 <p class="hero-subtitle">Blending age-old herbal wisdom with the smart insight of AI, we create tea mixes that truly listen to what your body needs.</p>
                 <div class="hero-buttons">
-                    <a href="#blends" class="btn btn-primary">Explore Our Blends</a>
-                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                    <a href="#waitlist" class="btn btn-primary">Join Waitlist</a>
+                    <a href="#blends" class="btn btn-secondary">Explore Our Blends</a>
                 </div>
             </div>
             <div class="hero-image">
                 <div class="logo-container">
                     <img src="images/d-bac-logo.png" alt="D-Bac AI Health Tea Logo" class="hero-logo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section id="waitlist" class="waitlist">
+        <div class="container">
+            <div class="waitlist-content">
+                <div class="waitlist-text">
+                    <h2>Be the First to Experience D-Bac AI Tea</h2>
+                    <p class="waitlist-subtitle">Join our exclusive waitlist and be among the first to receive our premium AI-crafted tea blends when we launch.</p>
+                    <div class="waitlist-benefits">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🎁</span>
+                            <span>Early access with 20% launch discount</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">📧</span>
+                            <span>Exclusive wellness tips and recipes</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">⭐</span>
+                            <span>VIP customer support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="waitlist-form-container">
+                    <form class="waitlist-form" id="waitlistForm">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Primary Interest</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select your primary wellness goal</option>
+                                <option value="sleep">Better Sleep</option>
+                                <option value="digestion">Digestive Health</option>
+                                <option value="energy">Energy & Vitality</option>
+                                <option value="stress">Stress Relief</option>
+                                <option value="immunity">Immune Support</option>
+                                <option value="general">General Wellness</option>
+                            </select>
+                            <div class="error-message" id="interestError"></div>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                I'd like to receive wellness tips and exclusive offers via email
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-waitlist">
+                            <span class="btn-text">Join Waitlist</span>
+                            <span class="btn-loading" style="display: none;">
+                                <span class="spinner"></span>
+                                Joining...
+                            </span>
+                        </button>
+                        <div class="form-success" id="formSuccess" style="display: none;">
+                            <div class="success-icon">✅</div>
+                            <h3>Welcome to the D-Bac Family!</h3>
+                            <p>Thank you for joining our waitlist. We'll notify you as soon as our premium tea blends are ready.</p>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -193,6 +266,7 @@
                     <p>Wellness in Every Cup</p>
                 </div>
                 <div class="footer-links">
+                    <a href="#waitlist">Waitlist</a>
                     <a href="#about">About</a>
                     <a href="#blends">Blends</a>
                     <a href="#contact">Contact</a>

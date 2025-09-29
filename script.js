@@ -320,3 +320,205 @@ const debouncedScrollHandler = debounce(() => {
 }, 10);
 
 window.addEventListener('scroll', debouncedScrollHandler);
+
+// Waitlist Form Functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const waitlistForm = document.getElementById('waitlistForm');
+    const submitButton = waitlistForm.querySelector('.btn-waitlist');
+    const btnText = submitButton.querySelector('.btn-text');
+    const btnLoading = submitButton.querySelector('.btn-loading');
+    const formSuccess = document.getElementById('formSuccess');
+
+    // Form validation
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    function validateName(name) {
+        return name.trim().length >= 2;
+    }
+
+    function showError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(fieldId + 'Error');
+        const formGroup = field.closest('.form-group');
+
+        formGroup.classList.add('error');
+        errorElement.textContent = message;
+        errorElement.classList.add('show');
+    }
+
+    function clearError(fieldId) {
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(fieldId + 'Error');
+        const formGroup = field.closest('.form-group');
+
+        formGroup.classList.remove('error');
+        errorElement.classList.remove('show');
+    }
+
+    function clearAllErrors() {
+        const errorElements = document.querySelectorAll('.error-message');
+        const errorGroups = document.querySelectorAll('.form-group.error');
+
+        errorElements.forEach(el => el.classList.remove('show'));
+        errorGroups.forEach(group => group.classList.remove('error'));
+    }
+
+    // Real-time validation
+    const emailField = document.getElementById('email');
+    const nameField = document.getElementById('name');
+    const interestField = document.getElementById('interest');
+
+    emailField.addEventListener('blur', () => {
+        const email = emailField.value.trim();
+        if (email && !validateEmail(email)) {
+            showError('email', 'Please enter a valid email address');
+        } else {
+            clearError('email');
+        }
+    });
+
+    nameField.addEventListener('blur', () => {
+        const name = nameField.value.trim();
+        if (name && !validateName(name)) {
+            showError('name', 'Please enter your full name (at least 2 characters)');
+        } else {
+            clearError('name');
+        }
+    });
+
+    interestField.addEventListener('change', () => {
+        if (interestField.value) {
+            clearError('interest');
+        }
+    });
+
+    // Form submission
+    waitlistForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Clear previous errors
+        clearAllErrors();
+
+        // Get form data
+        const formData = new FormData(waitlistForm);
+        const email = formData.get('email').trim();
+        const name = formData.get('name').trim();
+        const interest = formData.get('interest');
+        const newsletter = formData.get('newsletter') === 'on';
+
+        // Validate form
+        let isValid = true;
+
+        if (!email) {
+            showError('email', 'Email address is required');
+            isValid = false;
+        } else if (!validateEmail(email)) {
+            showError('email', 'Please enter a valid email address');
+            isValid = false;
+        }
+
+        if (!name) {
+            showError('name', 'Full name is required');
+            isValid = false;
+        } else if (!validateName(name)) {
+            showError('name', 'Please enter your full name (at least 2 characters)');
+            isValid = false;
+        }
+
+        if (!interest) {
+            showError('interest', 'Please select your primary wellness goal');
+            isValid = false;
+        }
+
+        if (!isValid) {
+            return;
+        }
+
+        // Show loading state
+        submitButton.disabled = true;
+        btnText.style.display = 'none';
+        btnLoading.style.display = 'flex';
+
+        try {
+            // Simulate API call (replace with actual endpoint)
+            await submitWaitlistData({
+                email,
+                name,
+                interest,
+                newsletter,
+                timestamp: new Date().toISOString()
+            });
+
+            // Show success message
+            waitlistForm.style.display = 'none';
+            formSuccess.style.display = 'block';
+
+            // Scroll to success message
+            formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        } catch (error) {
+            console.error('Error submitting waitlist:', error);
+
+            // Show error message
+            const errorMessage = document.createElement('div');
+            errorMessage.className = 'form-error';
+            errorMessage.innerHTML = `
+                <div style="background-color: #f8d7da; color: #721c24; padding: 1rem; border-radius: 10px; margin-top: 1rem; text-align: center;">
+                    <strong>Oops!</strong> Something went wrong. Please try again or contact us directly.
+                </div>
+            `;
+            waitlistForm.appendChild(errorMessage);
+
+            // Remove error message after 5 seconds
+            setTimeout(() => {
+                if (errorMessage.parentElement) {
+                    errorMessage.remove();
+                }
+            }, 5000);
+
+        } finally {
+            // Reset button state
+            submitButton.disabled = false;
+            btnText.style.display = 'inline';
+            btnLoading.style.display = 'none';
+        }
+    });
+
+    // Function to submit waitlist data
+    async function submitWaitlistData(data) {
+        // Production API endpoint (update this URL when deploying)
+        const API_ENDPOINT = 'https://your-backend-url.com/api/waitlist';
+
+        // For development, simulate the API call
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            console.log('Waitlist submission (dev mode):', data);
+            return { success: true, message: 'Successfully joined waitlist!' };
+        }
+
+        // Production API call
+        try {
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || 'Failed to submit waitlist data');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('API Error:', error);
+            throw error;
+        }
+    }
+});

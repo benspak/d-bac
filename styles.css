@@ -370,6 +370,265 @@ section {
     line-height: 1.6;
 }
 
+/* Waitlist Section */
+.waitlist {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    padding: 100px 0;
+}
+
+.waitlist-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.waitlist-text h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.waitlist-subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.waitlist-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateX(5px);
+}
+
+.benefit-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e8f5e8;
+    border-radius: 50%;
+}
+
+.benefit-item span:last-child {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.waitlist-form-container {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.waitlist-form-container:hover {
+    border-color: #27ae60;
+    box-shadow: 0 20px 50px rgba(39, 174, 96, 0.15);
+}
+
+.waitlist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #2c3e50;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 15px 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    color: #2c3e50;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #27ae60;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #adb5bd;
+}
+
+.checkbox-group {
+    flex-direction: row !important;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark {
+    background-color: #27ae60;
+    border-color: #27ae60;
+}
+
+.checkbox-label input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.btn-waitlist {
+    background-color: #27ae60;
+    color: white;
+    padding: 18px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-waitlist:hover {
+    background-color: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+}
+
+.btn-waitlist:active {
+    transform: translateY(0);
+}
+
+.btn-waitlist:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+.form-group.error input,
+.form-group.error select {
+    border-color: #e74c3c;
+    background-color: #fdf2f2;
+}
+
+.form-success {
+    text-align: center;
+    padding: 2rem;
+    background-color: #d4edda;
+    border-radius: 15px;
+    border: 2px solid #c3e6cb;
+}
+
+.success-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.form-success h3 {
+    color: #155724;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.form-success p {
+    color: #155724;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
 /* Payment Section */
 .payment {
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -536,6 +795,20 @@ section {
     .footer-links {
         justify-content: center;
     }
+
+    .waitlist-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .waitlist-text h2 {
+        font-size: 2rem;
+    }
+
+    .waitlist-form-container {
+        padding: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -575,6 +848,19 @@ section {
 
     .label-tags {
         justify-content: center;
+    }
+
+    .waitlist-text h2 {
+        font-size: 1.8rem;
+    }
+
+    .waitlist-form-container {
+        padding: 1.5rem;
+    }
+
+    .btn-waitlist {
+        padding: 15px 25px;
+        font-size: 1rem;
     }
 }
 
