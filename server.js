@@ -1,5 +1,5 @@
-// Backend Example for Waitlist Integration with Resend
-// This is a Node.js/Express example for production deployment
+// D-Bac AI Tea Backend - Production Ready
+// Waitlist Integration with Resend Email Service
 
 const express = require('express');
 const cors = require('cors');
@@ -7,22 +7,88 @@ const { Resend } = require('resend');
 require('dotenv').config();
 
 const app = express();
+
+// Validate required environment variables
+if (!process.env.RESEND_API_KEY) {
+    console.error('❌ RESEND_API_KEY is required but not set');
+    process.exit(1);
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// CORS Configuration - Allow requests from your frontend domain
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (mobile apps, Postman, etc.)
+        if (!origin) return callback(null, true);
+
+        // Allow localhost for development
+        if (origin.includes('localhost') || origin.includes('127.0.0.1')) {
+            return callback(null, true);
+        }
+
+        // Allow your production domain
+        const allowedOrigins = [
+            'https://your-domain.com',
+            'https://www.your-domain.com',
+            'https://d-bac-tea.com',
+            'https://www.d-bac-tea.com'
+        ];
+
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+
+        // Allow any origin in development (remove in production)
+        if (process.env.NODE_ENV === 'development') {
+            return callback(null, true);
+        }
+
+        callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+};
+
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(cors(corsOptions));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+    next();
+});
 
 // Waitlist endpoint
 app.post('/api/waitlist', async (req, res) => {
     try {
         const { email, name, interest, newsletter } = req.body;
 
-        // Validate required fields
-        if (!email || !name || !interest) {
+        // Validate required fields with detailed error messages
+        if (!email) {
             return res.status(400).json({
                 success: false,
-                message: 'Missing required fields'
+                message: 'Email address is required',
+                field: 'email'
+            });
+        }
+
+        if (!name) {
+            return res.status(400).json({
+                success: false,
+                message: 'Full name is required',
+                field: 'name'
+            });
+        }
+
+        if (!interest) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please select your primary wellness goal',
+                field: 'interest'
             });
         }
 
@@ -31,27 +97,51 @@ app.post('/api/waitlist', async (req, res) => {
         if (!emailRegex.test(email)) {
             return res.status(400).json({
                 success: false,
-                message: 'Invalid email format'
+                message: 'Please enter a valid email address',
+                field: 'email'
+            });
+        }
+
+        // Validate name length
+        if (name.trim().length < 2) {
+            return res.status(400).json({
+                success: false,
+                message: 'Name must be at least 2 characters long',
+                field: 'name'
+            });
+        }
+
+        // Validate interest value
+        const validInterests = ['sleep', 'digestion', 'energy', 'stress', 'immunity', 'general'];
+        if (!validInterests.includes(interest)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid interest selection',
+                field: 'interest'
             });
         }
 
         // Store in database (example with MongoDB)
         const waitlistEntry = {
-            email,
-            name,
+            email: email.toLowerCase().trim(),
+            name: name.trim(),
             interest,
             newsletter: newsletter || false,
             timestamp: new Date(),
-            status: 'pending'
+            status: 'pending',
+            ip: req.ip || req.connection.remoteAddress,
+            userAgent: req.get('User-Agent')
         };
 
         // TODO: Save to database
         // await db.collection('waitlist').insertOne(waitlistEntry);
+        console.log('📝 Waitlist entry:', waitlistEntry);
 
         // Send confirmation email using Resend
+        console.log('📧 Sending welcome email to:', email);
         const emailData = await resend.emails.send({
             from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
-            to: [email],
+            to: [email.toLowerCase().trim()],
             subject: 'Welcome to the D-Bac AI Tea Waitlist! 🍃',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -90,10 +180,13 @@ app.post('/api/waitlist', async (req, res) => {
 
         // Send notification to admin
         const adminEmail = process.env.ADMIN_EMAIL || 'darren.bihms@gmail.com';
-        await resend.emails.send({
-            from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
-            to: [adminEmail],
-            subject: `🎉 New Waitlist Signup: ${name}`,
+        console.log('📧 Sending admin notification to:', adminEmail);
+
+        try {
+            await resend.emails.send({
+                from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
+                to: [adminEmail],
+                subject: `🎉 New Waitlist Signup: ${name}`,
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                     <div style="background-color: #27ae60; color: white; padding: 20px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
@@ -139,19 +232,46 @@ app.post('/api/waitlist', async (req, res) => {
                     </div>
                 </div>
             `
-        });
+            });
+            console.log('✅ Admin notification sent successfully');
+        } catch (adminError) {
+            console.error('❌ Failed to send admin notification:', adminError);
+            // Don't fail the entire request if admin notification fails
+        }
 
+        console.log('✅ Waitlist submission successful');
         res.json({
             success: true,
             message: 'Successfully joined waitlist!',
-            emailId: emailData.id
+            emailId: emailData.id,
+            timestamp: new Date().toISOString()
         });
 
     } catch (error) {
-        console.error('Waitlist submission error:', error);
+        console.error('❌ Waitlist submission error:', error);
+
+        // Handle specific Resend errors
+        if (error.name === 'ResendError') {
+            return res.status(400).json({
+                success: false,
+                message: 'Email service temporarily unavailable. Please try again later.',
+                error: process.env.NODE_ENV === 'development' ? error.message : undefined
+            });
+        }
+
+        // Handle validation errors
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({
+                success: false,
+                message: error.message
+            });
+        }
+
+        // Generic error response
         res.status(500).json({
             success: false,
-            message: 'Internal server error'
+            message: 'Internal server error. Please try again later.',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 });
@@ -171,12 +291,67 @@ function getInterestDisplayName(interest) {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date().toISOString() });
+    res.json({
+        status: 'OK',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development',
+        version: '1.0.0'
+    });
+});
+
+// CORS preflight handler
+app.options('*', cors(corsOptions));
+
+// 404 handler
+app.use('*', (req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'Endpoint not found',
+        path: req.originalUrl
+    });
+});
+
+// Global error handler
+app.use((error, req, res, next) => {
+    console.error('🚨 Global error handler:', error);
+
+    if (error.message === 'Not allowed by CORS') {
+        return res.status(403).json({
+            success: false,
+            message: 'CORS policy violation'
+        });
+    }
+
+    res.status(500).json({
+        success: false,
+        message: 'Internal server error',
+        error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+const server = app.listen(PORT, () => {
+    console.log(`🚀 D-Bac AI Tea Backend running on port ${PORT}`);
+    console.log(`📧 Admin notifications: ${process.env.ADMIN_EMAIL || 'darren.bihms@gmail.com'}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('🛑 SIGTERM received, shutting down gracefully');
+    server.close(() => {
+        console.log('✅ Process terminated');
+        process.exit(0);
+    });
+});
+
+process.on('SIGINT', () => {
+    console.log('🛑 SIGINT received, shutting down gracefully');
+    server.close(() => {
+        console.log('✅ Process terminated');
+        process.exit(0);
+    });
 });
 
 module.exports = app;

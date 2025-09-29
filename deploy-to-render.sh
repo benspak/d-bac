@@ -1,5 +1,5 @@
 #!/bin/bash
-# Deployment script for D-Bac AI Tea Backend to Render.com
+# Deployment script for D-Bac AI Tea Server to Render.com
 
 echo "🚀 Deploying D-Bac AI Tea Backend to Render.com"
 echo "================================================"
@@ -10,8 +10,8 @@ if [ ! -f "package.json" ]; then
     exit 1
 fi
 
-if [ ! -f "backend-example.js" ]; then
-    echo "❌ backend-example.js not found"
+if [ ! -f "server.js" ]; then
+    echo "❌ server.js not found"
     exit 1
 fi
 
@@ -44,8 +44,8 @@ fi
 # Test the application
 echo "🧪 Testing application..."
 node -e "
-const app = require('./backend-example.js');
-console.log('✅ Application loads successfully');
+const app = require('./server.js');
+console.log('✅ Server loads successfully');
 "
 
 echo ""

@@ -1,5 +1,5 @@
-// Test script for Resend integration
-// Run this after setting up your API key to test email delivery
+// D-Bac AI Tea Email Service Test
+// Tests Resend integration and email delivery functionality
 
 const { Resend } = require('resend');
 require('dotenv').config();
@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function testEmailDelivery() {
     try {
-        console.log('🧪 Testing Resend email delivery...');
+        console.log('🧪 Testing D-Bac AI Tea Email Service...');
 
         // Test welcome email
         const welcomeEmail = await resend.emails.send({

@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to submit waitlist data
     async function submitWaitlistData(data) {
         // Production API endpoint (update this URL when deploying)
-        const API_ENDPOINT = 'https://your-backend-url.com/api/waitlist';
+        const API_ENDPOINT = 'https://your-server-url.com/api/waitlist';
 
         // For development, simulate the API call
         if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
