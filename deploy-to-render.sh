@@ -1,62 +1,49 @@
 #!/bin/bash
-# Deployment script for D-Bac AI Tea Server to Render.com
 
-echo "🚀 Deploying D-Bac AI Tea Backend to Render.com"
-echo "================================================"
+# D-Bac AI Tea - Production Deployment Script
+# This script deploys the updated website with CSS fixes to Render.com
 
-# Check if required files exist
-if [ ! -f "package.json" ]; then
-    echo "❌ package.json not found"
+echo "🚀 Deploying D-Bac AI Tea to Production..."
+
+# Check if git is available
+if ! command -v git &> /dev/null; then
+    echo "❌ Git is not installed. Please install git first."
     exit 1
 fi
 
-if [ ! -f "server.js" ]; then
-    echo "❌ server.js not found"
+# Check if we're in a git repository
+if [ ! -d ".git" ]; then
+    echo "❌ Not in a git repository. Please initialize git first."
     exit 1
 fi
 
-echo "✅ Required files found"
+# Add all changes
+echo "📝 Adding all changes to git..."
+git add .
 
-# Install dependencies
-echo "📦 Installing dependencies..."
-npm install
+# Commit changes
+echo "💾 Committing changes..."
+git commit -m "Fix CSS styling for Tea Sessions section in production
 
-# Check if .env file exists
-if [ ! -f ".env" ]; then
-    echo "⚠️  .env file not found. Creating template..."
-    cat > .env << EOF
-# Resend API Configuration
-RESEND_API_KEY=your_resend_api_key_here
+- Added static file serving to Express server
+- Added cache-busting headers for CSS files
+- Fixed production CSS loading issues
+- Updated server to serve frontend files properly"
 
-# Admin Email
-ADMIN_EMAIL=darren.bihms@gmail.com
+# Push to main branch
+echo "📤 Pushing to main branch..."
+git push origin main
 
-# Server Configuration
-PORT=10000
-NODE_ENV=production
-
-# CORS Configuration
-CORS_ORIGIN=https://your-domain.com
-EOF
-    echo "📝 Created .env template. Please update with your actual values."
-fi
-
-# Test the application
-echo "🧪 Testing application..."
-node -e "
-const app = require('./server.js');
-console.log('✅ Server loads successfully');
-"
-
+echo "✅ Deployment initiated!"
 echo ""
-echo "🎉 Backend is ready for deployment!"
+echo "🔧 What was fixed:"
+echo "   - Added express.static() middleware to serve HTML/CSS/JS files"
+echo "   - Added cache-busting headers for styles.css"
+echo "   - Added root route to serve index.html"
+echo "   - Fixed production CSS loading issues"
 echo ""
-echo "📋 Next steps:"
-echo "1. Update .env file with your Resend API key"
-echo "2. Push to GitHub repository"
-echo "3. Connect repository to Render.com"
-echo "4. Set environment variables in Render dashboard"
-echo "5. Deploy!"
+echo "⏳ Render.com will automatically deploy these changes."
+echo "🌐 Your website will be updated in 2-3 minutes."
 echo ""
-echo "📧 Admin email configured for: darren.bihms@gmail.com"
-echo "🔗 API endpoint will be: https://your-app-name.onrender.com/api/waitlist"
+echo "📧 Admin notifications will continue to be sent to: darren.bihms@gmail.com"
+echo "🎯 The Tea Sessions section should now display correctly in production!"
