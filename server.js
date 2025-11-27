@@ -1,4 +1,4 @@
-// D-Bac AI Tea Backend - Production Ready
+// Prime Key Health Backend - Production Ready
 // Waitlist Integration with Resend Email Service
 
 const express = require('express');
@@ -162,13 +162,13 @@ app.post('/api/waitlist', async (req, res) => {
         // Send confirmation email using Resend
         console.log('📧 Sending welcome email to:', email);
         const emailData = await resend.emails.send({
-            from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
+            from: 'Prime Key Health <noreply@d-bac-tea.com>',
             to: [email.toLowerCase().trim()],
-            subject: 'Welcome to the D-Bac AI Tea Waitlist! 🍃',
+            subject: 'Welcome to the Prime Key Health Waitlist! 🍃',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                     <div style="text-align: center; margin-bottom: 30px;">
-                        <h1 style="color: #27ae60; margin-bottom: 10px;">Welcome to D-Bac AI Tea!</h1>
+                        <h1 style="color: #27ae60; margin-bottom: 10px;">Welcome to Prime Key Health!</h1>
                         <p style="color: #7f8c8d; font-size: 18px;">Thank you for joining our exclusive waitlist</p>
                     </div>
 
@@ -193,7 +193,7 @@ app.post('/api/waitlist', async (req, res) => {
                             We'll notify you as soon as our premium tea blends are ready!
                         </p>
                         <p style="color: #7f8c8d; font-size: 12px; margin-top: 20px;">
-                            D-Bac AI Health Tea | Wellness in Every Cup
+                            Prime Key Health | Wellness in Every Cup
                         </p>
                     </div>
                 </div>
@@ -206,7 +206,7 @@ app.post('/api/waitlist', async (req, res) => {
 
         try {
             await resend.emails.send({
-                from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
+                from: 'Prime Key Health <noreply@d-bac-tea.com>',
                 to: [adminEmail],
                 subject: `🎉 New Waitlist Signup: ${name}`,
             html: `
@@ -249,7 +249,7 @@ app.post('/api/waitlist', async (req, res) => {
 
                     <div style="text-align: center; margin-top: 30px;">
                         <p style="color: #7f8c8d; font-size: 14px;">
-                            D-Bac AI Health Tea | Wellness in Every Cup
+                            Prime Key Health | Wellness in Every Cup
                         </p>
                     </div>
                 </div>
@@ -353,7 +353,7 @@ app.use((error, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
-    console.log(`🚀 D-Bac AI Tea Backend running on port ${PORT}`);
+    console.log(`🚀 Prime Key Health Backend running on port ${PORT}`);
     console.log(`📧 Admin notifications: ${process.env.ADMIN_EMAIL || 'darren.bihms@gmail.com'}`);
     console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`📊 Health check: http://localhost:${PORT}/api/health`);

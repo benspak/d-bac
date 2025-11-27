@@ -1,4 +1,4 @@
-# D-Bac AI Tea - Resend Setup Guide
+# Prime Key Health - Resend Setup Guide
 
 ## Quick Setup for darren.bihms@gmail.com
 
@@ -10,7 +10,7 @@
 ### Step 2: Get API Key
 1. In Resend dashboard, go to **API Keys**
 2. Click **Create API Key**
-3. Name it: "D-Bac Tea Waitlist"
+3. Name it: "Prime Key Health Waitlist"
 4. Copy the API key (starts with `re_`)
 
 ### Step 3: Add Domain (Optional but Recommended)
@@ -29,7 +29,7 @@
 4. Click **New +** → **Web Service**
 5. Connect your GitHub repository
 6. Configure:
-   - **Name**: `d-bac-tea-backend`
+   - **Name**: `prime-key-health-backend`
    - **Runtime**: `Node`
    - **Build Command**: `npm install`
    - **Start Command**: `npm start`
@@ -64,7 +64,7 @@ const API_ENDPOINT = 'https://your-render-app-name.onrender.com/api/waitlist';
 ## Email Templates Included
 
 ### Welcome Email Features:
-- ✅ Professional D-Bac branding
+- ✅ Professional Prime Key Health branding
 - ✅ Personalized based on wellness interest
 - ✅ Early access benefits highlighted
 - ✅ 20% launch discount mentioned

@@ -1,6 +1,6 @@
-# D-Bac AI Tea - Waitlist System
+# Prime Key Health - Waitlist System
 
-A complete waitlist system for D-Bac AI Tea with email integration using Resend.
+A complete waitlist system for Prime Key Health with email integration using Resend.
 
 ## 📁 Project Structure
 
@@ -62,7 +62,7 @@ npm run test:email
 The system uses Resend for email delivery:
 - **Welcome emails** sent to waitlist subscribers
 - **Admin notifications** sent to `darren.bihms@gmail.com`
-- **Professional templates** with D-Bac branding
+- **Professional templates** with Prime Key Health branding
 
 ## 🔧 API Endpoints
 

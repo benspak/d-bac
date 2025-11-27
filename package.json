@@ -1,7 +1,7 @@
 {
   "name": "d-bac-tea-backend",
   "version": "1.0.0",
-  "description": "Backend API for D-Bac AI Tea waitlist",
+  "description": "Backend API for Prime Key Health waitlist",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -27,6 +27,6 @@
     "api",
     "resend"
   ],
-  "author": "D-Bac AI Tea",
+  "author": "Prime Key Health",
   "license": "MIT"
 }

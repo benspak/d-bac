@@ -1,4 +1,4 @@
-# 🚀 D-Bac AI Tea - Resend Backend Setup Complete!
+# 🚀 Prime Key Health - Resend Backend Setup Complete!
 
 ## ✅ What's Been Configured
 
@@ -58,7 +58,7 @@ node test-resend.js
 ## 📧 Email Features
 
 ### Welcome Email Includes:
-- ✅ Professional D-Bac branding
+- ✅ Professional Prime Key Health branding
 - ✅ Personalized wellness interest
 - ✅ Early access benefits
 - ✅ 20% launch discount

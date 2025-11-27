@@ -1,4 +1,4 @@
-// D-Bac AI Tea Server Integration Test Suite
+// Prime Key Health Server Integration Test Suite
 // Tests CORS, email functionality, and API endpoints
 
 const { Resend } = require('resend');
@@ -7,7 +7,7 @@ require('dotenv').config();
 const API_BASE_URL = process.env.API_URL || 'http://localhost:3000';
 
 async function testBackend() {
-    console.log('🧪 D-Bac AI Tea Server Integration Test Suite');
+    console.log('🧪 Prime Key Health Server Integration Test Suite');
     console.log('=====================================\n');
 
     // Test 1: Health Check
@@ -113,9 +113,9 @@ async function testBackend() {
             const resend = new Resend(process.env.RESEND_API_KEY);
 
             const emailData = await resend.emails.send({
-                from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
+                from: 'Prime Key Health <noreply@d-bac-tea.com>',
                 to: ['darren.bihms@gmail.com'],
-                subject: '🧪 Test: D-Bac AI Tea Backend Email Test',
+                subject: '🧪 Test: Prime Key Health Backend Email Test',
                 html: `
                     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                         <div style="text-align: center; margin-bottom: 30px;">
@@ -142,7 +142,7 @@ async function testBackend() {
 
                         <div style="text-align: center; margin-top: 30px;">
                             <p style="color: #7f8c8d; font-size: 14px;">
-                                D-Bac AI Health Tea | Wellness in Every Cup
+                                Prime Key Health | Wellness in Every Cup
                             </p>
                         </div>
                     </div>

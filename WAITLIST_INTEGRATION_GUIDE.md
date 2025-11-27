@@ -1,4 +1,4 @@
-# D-Bac AI Tea - Waitlist Integration
+# Prime Key Health - Waitlist Integration
 
 This project includes a complete email waitlist form integration with Resend for production deployment.
 

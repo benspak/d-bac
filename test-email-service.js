@@ -1,4 +1,4 @@
-// D-Bac AI Tea Email Service Test
+// Prime Key Health Email Service Test
 // Tests Resend integration and email delivery functionality
 
 const { Resend } = require('resend');
@@ -8,13 +8,13 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function testEmailDelivery() {
     try {
-        console.log('🧪 Testing D-Bac AI Tea Email Service...');
+        console.log('🧪 Testing Prime Key Health Email Service...');
 
         // Test welcome email
         const welcomeEmail = await resend.emails.send({
-            from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
+            from: 'Prime Key Health <noreply@d-bac-tea.com>',
             to: ['darren.bihms@gmail.com'],
-            subject: '🧪 Test: D-Bac AI Tea Waitlist Welcome Email',
+            subject: '🧪 Test: Prime Key Health Waitlist Welcome Email',
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
                     <div style="text-align: center; margin-bottom: 30px;">
@@ -40,7 +40,7 @@ async function testEmailDelivery() {
 
                     <div style="text-align: center; margin-top: 30px;">
                         <p style="color: #7f8c8d; font-size: 14px;">
-                            D-Bac AI Health Tea | Wellness in Every Cup
+                            Prime Key Health | Wellness in Every Cup
                         </p>
                     </div>
                 </div>
@@ -52,7 +52,7 @@ async function testEmailDelivery() {
 
         // Test admin notification
         const adminEmail = await resend.emails.send({
-            from: 'D-Bac AI Tea <noreply@d-bac-tea.com>',
+            from: 'Prime Key Health <noreply@d-bac-tea.com>',
             to: ['darren.bihms@gmail.com'],
             subject: '🧪 Test: Admin Notification',
             html: `
@@ -89,7 +89,7 @@ async function testEmailDelivery() {
 
                     <div style="text-align: center; margin-top: 30px;">
                         <p style="color: #7f8c8d; font-size: 14px;">
-                            D-Bac AI Health Tea | Wellness in Every Cup
+                            Prime Key Health | Wellness in Every Cup
                         </p>
                     </div>
                 </div>

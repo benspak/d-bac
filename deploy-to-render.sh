@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# D-Bac AI Tea - Production Deployment Script
+# Prime Key Health - Production Deployment Script
 # This script deploys the updated website with CSS fixes to Render.com
 
-echo "🚀 Deploying D-Bac AI Tea to Production..."
+echo "🚀 Deploying Prime Key Health to Production..."
 
 # Check if git is available
 if ! command -v git &> /dev/null; then
