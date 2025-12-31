@@ -982,6 +982,222 @@ html {
     outline-offset: 2px;
 }
 
+/* Founder Page Styles */
+.founder-hero {
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+    padding: 150px 0 80px;
+    text-align: center;
+}
+
+.founder-hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.founder-intro {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.founder-story {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.founder-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.founder-greeting {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.greeting-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.founder-greeting h2 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.founder-tagline {
+    font-size: 1.3rem;
+    color: #27ae60;
+    font-weight: 500;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.story-cards {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.story-card {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-left: 4px solid #27ae60;
+}
+
+.story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(39, 174, 96, 0.15);
+}
+
+.story-card.featured {
+    background: linear-gradient(135deg, #e8f5e8 0%, #ffffff 100%);
+    border-left: 6px solid #27ae60;
+}
+
+.story-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.story-card h3 {
+    font-size: 1.5rem;
+    color: #27ae60;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.story-card p {
+    color: #7f8c8d;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.founder-philosophy {
+    background: linear-gradient(135deg, #27ae60 0%, #1e8449 100%);
+    padding: 3rem;
+    border-radius: 20px;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.philosophy-content h3 {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.philosophy-content p {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.founder-closing {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.founder-closing p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.founder-closing .signature {
+    font-size: 1.5rem;
+    color: #27ae60;
+    font-weight: 600;
+    font-style: italic;
+    margin-top: 2rem;
+}
+
+.founder-closing .founder-name {
+    font-size: 1.3rem;
+    color: #2c3e50;
+    font-weight: 700;
+    margin-top: 1rem;
+}
+
+.founder-cta {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.nav-menu a.active {
+    color: #27ae60;
+}
+
+.nav-menu a.active::after {
+    width: 100%;
+}
+
+/* Founder Page Responsive */
+@media (max-width: 768px) {
+    .founder-hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .founder-intro {
+        font-size: 1.1rem;
+    }
+
+    .founder-greeting h2 {
+        font-size: 2rem;
+    }
+
+    .founder-tagline {
+        font-size: 1.1rem;
+    }
+
+    .story-card {
+        padding: 2rem;
+    }
+
+    .philosophy-content p {
+        font-size: 1.4rem;
+    }
+
+    .founder-cta {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .founder-hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .founder-greeting h2 {
+        font-size: 1.8rem;
+    }
+
+    .story-card p {
+        font-size: 1rem;
+    }
+
+    .philosophy-content p {
+        font-size: 1.2rem;
+    }
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
     .hero-title,
