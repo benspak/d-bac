@@ -792,6 +792,20 @@ section {
     color: #bdc3c7;
 }
 
+.footer-email {
+    color: #27ae60;
+    text-decoration: none;
+    font-size: 0.95rem;
+    display: block;
+    margin-top: 0.5rem;
+    transition: color 0.3s ease;
+}
+
+.footer-email:hover {
+    color: #2ecc71;
+    text-decoration: underline;
+}
+
 .footer-links {
     display: flex;
     gap: 2rem;
