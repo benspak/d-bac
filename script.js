@@ -84,14 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Payment button interactions
+// Payment button interactions - ripple effect only
 document.addEventListener('DOMContentLoaded', () => {
     const paymentButtons = document.querySelectorAll('.btn-payment');
 
     paymentButtons.forEach(button => {
         button.addEventListener('click', (e) => {
-            e.preventDefault();
-
             // Add a ripple effect
             const ripple = document.createElement('span');
             const rect = button.getBoundingClientRect();
@@ -109,72 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 ripple.remove();
             }, 600);
-
-            // Show a message (in a real app, this would redirect to payment)
-            showPaymentMessage(button.textContent);
         });
     });
 });
-
-// Payment message function
-function showPaymentMessage(paymentMethod) {
-    const message = document.createElement('div');
-    message.className = 'payment-message';
-    message.innerHTML = `
-        <div class="message-content">
-            <h4>Redirecting to ${paymentMethod}...</h4>
-            <p>In a real application, this would redirect you to the payment processor.</p>
-            <button onclick="this.parentElement.parentElement.remove()">Close</button>
-        </div>
-    `;
-
-    // Style the message
-    message.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 10000;
-        animation: fadeIn 0.3s ease;
-    `;
-
-    const content = message.querySelector('.message-content');
-    content.style.cssText = `
-        background: white;
-        padding: 2rem;
-        border-radius: 15px;
-        text-align: center;
-        max-width: 400px;
-        margin: 0 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    `;
-
-    const closeButton = message.querySelector('button');
-    closeButton.style.cssText = `
-        background-color: #27ae60;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 25px;
-        margin-top: 1rem;
-        cursor: pointer;
-        font-weight: 600;
-    `;
-
-    document.body.appendChild(message);
-
-    // Auto remove after 3 seconds
-    setTimeout(() => {
-        if (message.parentElement) {
-            message.remove();
-        }
-    }, 3000);
-}
 
 // Add CSS for ripple effect
 const style = document.createElement('style');
@@ -207,16 +142,6 @@ style.textContent = `
         to {
             opacity: 1;
         }
-    }
-
-    .payment-message h4 {
-        color: #2c3e50;
-        margin-bottom: 1rem;
-    }
-
-    .payment-message p {
-        color: #7f8c8d;
-        margin-bottom: 1rem;
     }
 `;
 document.head.appendChild(style);
@@ -257,10 +182,6 @@ document.addEventListener('keydown', (e) => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }
-
-        // Close any payment messages
-        const messages = document.querySelectorAll('.payment-message');
-        messages.forEach(message => message.remove());
     }
 });
 
